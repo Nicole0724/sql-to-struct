@@ -24,6 +24,7 @@ func InitMysql() {
 		panic(err)
 	}
 
+	//fmt.Println(color_print.Green("数据库连接成功!"))
 	global.DBEngine = db
 }
 

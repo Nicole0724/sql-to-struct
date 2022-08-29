@@ -7,7 +7,6 @@ import (
 	"sqltostruct/internal/model"
 	"sqltostruct/internal/templates"
 	"sqltostruct/libs/words"
-	"time"
 )
 
 func SqlTwoStruct() {
@@ -26,15 +25,10 @@ func sqlTwoStructByTable() {
 	var conf = config.Conf
 	tableList, _ := model.GetColumnsByDatabaseName(conf.SqlConfig.DataBaseName)
 
-	for i, column := range tableList {
-		fmt.Println(i)
+	for _, column := range tableList {
 		fmt.Println(column.TableName)
-		/*go func() {
-			fmt.Println(i)
-			fmt.Println(column.TableName)
-		}()*/
 		sqlTwoStructByTableName(column.TableName)
-		time.Sleep(500 * time.Millisecond) //模拟执行的耗时任务
+		//time.Sleep(500 * time.Millisecond) //模拟执行的耗时任务
 	}
 }
 
