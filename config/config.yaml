@@ -1,8 +1,8 @@
 PackageName: entity
 TableName: dict
 SaveFileName: dictModel
-#SaveFilePwd: "D:\\work_space\\open_source\\go-libs\\sql-to-struct\\entity\\"
-SaveFilePwd: './entity/'
+SaveFilePwd: "D:\\work_space\\open_source\\go-libs\\sql-to-struct\\entity\\" #绝对路径方式
+#SaveFilePwd: './entity/' #相对路径方式
 SqlConfig:
   Type: mysql # 数据库类型
   Host: 127.0.0.1 # 填写你的数据库账号
