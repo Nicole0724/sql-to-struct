@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-var dirRoot = "./config"
+var dirRoot = "./"
 
 // GetConfToolsInit 利用init 函数会在主函数执行之前运行的特点，在main函数执行之前读取文件 /**
 func GetConfToolsInit() {
