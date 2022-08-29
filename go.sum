@@ -1,0 +1,4 @@
+gitee.com/nicole-go-libs/print-colors v1.0.3 h1:gykbJAAZht3+4YmCUQqeGHynTaAn3512D4TJuKIglmI=
+gitee.com/nicole-go-libs/print-colors v1.0.3/go.mod h1:6c5ZazkNyPXruXK3hln7Mas7YdgQ5xj57y0FE6sFi94=
+github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
+github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
