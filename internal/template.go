@@ -1,10 +1,9 @@
-package sqltostruct
+package internal
 
 import (
 	"fmt"
 	"os"
-	"regexp"
-	"strings"
+	"sqltostruct/libs/words"
 	"text/template"
 )
 
@@ -55,7 +54,7 @@ func (t *StructTemplate) AssemblyColumns(tbColumns []*TableColumn) []*StructColu
 	tplColumns := make([]*StructColumn, 0, len(tbColumns))
 	for _, column := range tbColumns {
 		//`gorm:"create_user" form:"createUser" json:"createUser"`
-		tag := fmt.Sprintf("`"+"gorm:"+"\"%s\""+" form:"+"\"%s\""+" json:"+"\"%s\""+"`", column.ColumnName, ToCamelCase(column.ColumnName), ToCamelCase(column.ColumnName))
+		tag := fmt.Sprintf("`"+"gorm:"+"\"%s\""+" form:"+"\"%s\""+" json:"+"\"%s\""+"`", column.ColumnName, words.ToCamelCase(column.ColumnName), words.ToCamelCase(column.ColumnName))
 		tplColumns = append(tplColumns, &StructColumn{
 			Type:    DBTypeToStructType[column.DataType],
 			Tag:     tag,
@@ -71,8 +70,8 @@ func (t *StructTemplate) Generate(packageName string, tableName string, tplColum
 	// t1, err :=template.ParseFiles("./test.tpl")
 	//template.Must 检测模板是否正确，例如大括号是否匹配，注释是否正确的关闭，变量是否正确的书写
 	tpl := template.Must(template.New(packageName).Funcs(template.FuncMap{
-		"ToBigCamelCase": ToBigCamelCase,
-		"ToCamelCase":    ToBigCamelCase,
+		"ToBigCamelCase": words.ToBigCamelCase,
+		"ToCamelCase":    words.ToBigCamelCase,
 	}).Parse(t.structTpl))
 
 	tplDB := StructTemplateDBPackage{
@@ -99,24 +98,4 @@ func (t *StructTemplate) Generate(packageName string, tableName string, tplColum
 	}
 
 	return nil
-}
-
-// ToBigCamelCase 大驼峰
-func ToBigCamelCase(s string) string {
-	words := regexp.MustCompile("-|_").Split(s, -1)
-
-	for i, w := range words {
-		words[i] = strings.Title(w)
-	}
-	return strings.Join(words, "")
-}
-
-// ToCamelCase 小驼峰
-func ToCamelCase(s string) string {
-	words := regexp.MustCompile("-|_").Split(s, -1)
-
-	for i, w := range words[1:] {
-		words[i+1] = strings.Title(w)
-	}
-	return strings.Join(words, "")
 }

@@ -1,0 +1,12 @@
+PackageName: entity
+TableName: dict
+SaveFileName: dictModel
+#SaveFilePwd: "D:\\work_space\\open_source\\go-libs\\sql-to-struct\\entity\\"
+SaveFilePwd: './entity/'
+SqlConfig:
+  Type: mysql # 数据库类型
+  Host: 127.0.0.1 # 填写你的数据库账号
+  Port: 3306 # 端口号
+  Account: root # 账号
+  Password: root #密码
+  DataBaseName: go_frame # 数据库名称

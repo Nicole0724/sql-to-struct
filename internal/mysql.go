@@ -1,6 +1,9 @@
-package sqltostruct
+package internal
 
-import "fmt"
+import (
+	"fmt"
+	"sqltostruct/global"
+)
 
 type TableColumn struct {
 	ColumnName    string
@@ -29,7 +32,7 @@ var DBTypeToStructType = map[string]string{
 
 func GetColumns(databaseName string, tableName string) ([]*TableColumn, error) {
 	jq := fmt.Sprintf("SELECT COLUMN_NAME,DATA_TYPE,COLUMN_KEY,IS_NULLABLE,COLUMN_TYPE,COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA= '%s' and TABLE_NAME = '%s'", databaseName, tableName)
-	rows, err := DBEngine.Query(jq)
+	rows, err := global.DBEngine.Query(jq)
 
 	if err != nil {
 		return nil, err

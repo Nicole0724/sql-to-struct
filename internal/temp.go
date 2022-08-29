@@ -1,4 +1,4 @@
-package sqltostruct
+package internal
 
 import (
 	"html/template"

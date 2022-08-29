@@ -1,39 +1,23 @@
-package sqltostruct
+package main
 
 import (
-	"fmt"
-	"log"
+	"sqltostruct/cmd"
+	"sqltostruct/config"
+	"sqltostruct/global"
+	"sqltostruct/internal"
 )
 
-type SqlConnectConfig struct {
-	Type         string
-	Host         string
-	Port         string
-	Account      string
-	Password     string
-	DataBaseName string
+func init() {
+	config.GetConfToolsInit()
+	cmd.InitFileUrl()
+	cmd.InitMysql()
 }
 
-type SqlToStructParams struct {
-	SqlConfig    SqlConnectConfig
-	PackageName  string
-	TableName    string
-	SaveFileName string
-	SaveFilePwd  string
-}
+func main() {
+	internal.SqlTwoStruct()
 
-func (s *SqlToStructParams) SqlTwoStruct() {
-	InitMysql(s.SqlConfig)
-	// 获取表信息
-	tableCol, _ := GetColumns(s.SqlConfig.DataBaseName, s.TableName)
-
-	// 使用 templete
-	tlp := NewStructTemplate()
-	structCol := tlp.AssemblyColumns(tableCol)
-	err := tlp.Generate(s.PackageName, s.TableName, structCol, s.SaveFilePwd, s.SaveFileName)
-	if err != nil {
-		log.Fatalf("template.Generate err: %v", err)
-	}
-
-	println(fmt.Sprintf("%v", structCol))
+	// 如果发生错误则关闭数据库连接
+	defer func() {
+		_ = global.DBEngine.Close()
+	}()
 }
