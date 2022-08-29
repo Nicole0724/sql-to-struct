@@ -1,8 +1,9 @@
-package internal
+package templates
 
 import (
 	"fmt"
 	"os"
+	"sqltostruct/internal/model"
 	"sqltostruct/libs/words"
 	"text/template"
 )
@@ -50,13 +51,13 @@ func NewStructTemplate() *StructTemplate {
 	return &StructTemplate{structTpl: structTpl}
 }
 
-func (t *StructTemplate) AssemblyColumns(tbColumns []*TableColumn) []*StructColumn {
+func (t *StructTemplate) AssemblyColumns(tbColumns []*model.TableColumn) []*StructColumn {
 	tplColumns := make([]*StructColumn, 0, len(tbColumns))
 	for _, column := range tbColumns {
 		//`gorm:"create_user" form:"createUser" json:"createUser"`
 		tag := fmt.Sprintf("`"+"gorm:"+"\"%s\""+" form:"+"\"%s\""+" json:"+"\"%s\""+"`", column.ColumnName, words.ToCamelCase(column.ColumnName), words.ToCamelCase(column.ColumnName))
 		tplColumns = append(tplColumns, &StructColumn{
-			Type:    DBTypeToStructType[column.DataType],
+			Type:    model.DBTypeToStructType[column.DataType],
 			Tag:     tag,
 			Comment: column.ColumnComment,
 			Name:    column.ColumnName,
@@ -81,6 +82,8 @@ func (t *StructTemplate) Generate(packageName string, tableName string, tplColum
 			Columns:   tplColumns,
 		},
 	}
+
+	//println(fmt.Sprintf("%s%s.go", filePwd, fileName))
 
 	//创建文件句柄
 	f, er := os.Create(fmt.Sprintf("%s%s.go", filePwd, fileName))

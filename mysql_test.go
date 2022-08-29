@@ -1,7 +1,7 @@
 package main
 
 import (
-	"sqltostruct/internal"
+	"sqltostruct/internal/templates"
 	"testing"
 )
 
@@ -10,5 +10,5 @@ func TestGetTable(t *testing.T) {
 }
 
 func TestTempMain(t *testing.T) {
-	internal.TempMain()
+	templates.TempMain()
 }

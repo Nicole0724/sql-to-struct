@@ -1,4 +1,5 @@
 PackageName: entity
+IsAllDataBase: true
 TableName: dict
 SaveFileName: dictModel
 SaveFilePwd: "D:\\work_space\\open_source\\go-libs\\sql-to-struct\\entity\\" #绝对路径方式

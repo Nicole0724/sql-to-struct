@@ -4,7 +4,7 @@ import (
 	"sqltostruct/cmd"
 	"sqltostruct/config"
 	"sqltostruct/global"
-	"sqltostruct/internal"
+	"sqltostruct/internal/service"
 )
 
 func init() {
@@ -14,7 +14,7 @@ func init() {
 }
 
 func main() {
-	internal.SqlTwoStruct()
+	service.SqlTwoStruct()
 
 	// 如果发生错误则关闭数据库连接
 	defer func() {

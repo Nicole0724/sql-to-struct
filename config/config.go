@@ -14,9 +14,10 @@ type SqlConnectConfig struct {
 }
 
 type SqlToStructParams struct {
-	SqlConfig    SqlConnectConfig `yaml:"SqlConfig"`
-	PackageName  string           `yaml:"PackageName"`
-	TableName    string           `yaml:"TableName"`
-	SaveFileName string           `yaml:"SaveFileName"`
-	SaveFilePwd  string           `yaml:"SaveFilePwd"`
+	SqlConfig     SqlConnectConfig `yaml:"SqlConfig"`
+	PackageName   string           `yaml:"PackageName"`
+	IsAllDataBase bool             `yaml:"IsAllDataBase"`
+	TableName     string           `yaml:"TableName"`
+	SaveFileName  string           `yaml:"SaveFileName"`
+	SaveFilePwd   string           `yaml:"SaveFilePwd"`
 }
