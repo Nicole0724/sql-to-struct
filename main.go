@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-	isEnd := userScanLn()
+	/*isEnd := userScanLn()
 	if isEnd {
 		var quit int
 		fmt.Println("配置完毕请按任意键退出。。。")
 		fmt.Scanln(&quit)
-	}
+	}*/
 	service.SqlTwoStruct()
 
 	// 如果发生错误则关闭数据库连接

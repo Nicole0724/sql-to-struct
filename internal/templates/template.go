@@ -8,14 +8,26 @@ import (
 	"text/template"
 )
 
+/**
+{{- 忽略前面的空
+gt 大于
+lt 小于
+eq 等于
+ne 不等于
+*/
 const structTpl = `
 package {{.PackageName}}
 
-
 type {{.DB.TableName | ToBigCamelCase }}Base struct{
-{{ range .DB.Columns }} {{$length := len .Comment }}{{if gt $length 0}}	//{{ .Comment }} {{else}} //{{.Name}} {{end}}{{$typeLen := len .Type }} {{if gt $typeLen 0}}
-	{{.Name | ToBigCamelCase}}	{{.Type}} {{.Tag}} {{else}}{{.Name}}{{end}}
-{{end}}
+{{- range .DB.Columns }}
+{{- $isShowBaseLength := len .IsShowBase }}
+{{- if eq $isShowBaseLength 0}}
+{{$length := len .Comment }}
+{{- if gt $length 0}}	//{{- .Comment }} {{- else}}	//{{- .Name}} {{end}}
+{{- $typeLen := len .Type }} 
+{{if gt $typeLen 0}}	{{.Name | ToBigCamelCase}}	{{.Type}} {{.Tag}} {{else}}	{{.Name}}{{end}}
+{{- end}}
+{{- end}}
 }
 
 type {{.DB.TableName | ToBigCamelCase }} struct{
@@ -31,10 +43,11 @@ type StructTemplate struct {
 }
 
 type StructColumn struct {
-	Name    string
-	Type    string
-	Tag     string
-	Comment string
+	Name       string
+	Type       string
+	Tag        string
+	Comment    string
+	IsShowBase string
 }
 
 type StructTemplateDB struct {
@@ -57,10 +70,11 @@ func (t *StructTemplate) AssemblyColumns(tbColumns []*model.TableColumn) []*Stru
 		//`gorm:"create_user" form:"createUser" json:"createUser"`
 		tag := fmt.Sprintf("`"+"gorm:"+"\"%s\""+" form:"+"\"%s\""+" json:"+"\"%s\""+"`", column.ColumnName, words.ToCamelCase(column.ColumnName), words.ToCamelCase(column.ColumnName))
 		tplColumns = append(tplColumns, &StructColumn{
-			Type:    model.DBTypeToStructType[column.DataType],
-			Tag:     tag,
-			Comment: column.ColumnComment,
-			Name:    column.ColumnName,
+			Type:       model.DBTypeToStructType[column.DataType],
+			Tag:        tag,
+			Comment:    column.ColumnComment,
+			Name:       column.ColumnName,
+			IsShowBase: model.DBSkipColName[column.ColumnName],
 		})
 	}
 	return tplColumns

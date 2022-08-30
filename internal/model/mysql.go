@@ -34,6 +34,14 @@ var DBTypeToStructType = map[string]string{
 	"datetime":  "string",
 }
 
+var DBSkipColName = map[string]string{
+	"is_deleted":  "is_deleted",
+	"update_time": "update_time",
+	"update_user": "update_user",
+	"create_time": "create_time",
+	"create_user": "create_user",
+}
+
 func GetColumnsByTableName(databaseName string, tableName string) ([]*TableColumn, error) {
 	jq := fmt.Sprintf("SELECT TABLE_NAME,COLUMN_NAME,DATA_TYPE,COLUMN_KEY,IS_NULLABLE,COLUMN_TYPE,COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA= '%s' and TABLE_NAME = '%s'", databaseName, tableName)
 	rows, err := global.DBEngine.Query(jq)
