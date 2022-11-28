@@ -23,7 +23,7 @@ func SqlTwoStruct() {
 
 func sqlTwoStructByTable() {
 	var conf = config.Conf
-	tableList, _ := model.GetColumnsByDatabaseName(conf.SqlConfig.DataBaseName)
+	tableList, _ := model.GetColumnsByDatabaseName(conf.SqlConfig.DataBaseName, conf.LikeTableName)
 
 	for _, column := range tableList {
 		fmt.Println(column.TableName)

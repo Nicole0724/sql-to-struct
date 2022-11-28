@@ -69,8 +69,14 @@ func GetColumnsByTableName(databaseName string, tableName string) ([]*TableColum
 	return res, nil
 }
 
-func GetColumnsByDatabaseName(databaseName string) ([]*TableNameColumn, error) {
-	jq := fmt.Sprintf("SELECT TABLE_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA= '%s' group by TABLE_NAME", databaseName)
+func GetColumnsByDatabaseName(databaseName string, tableName string) ([]*TableNameColumn, error) {
+	var jq string
+	if tableName != "" {
+		likeTableName := "%" + tableName + "%"
+		jq = fmt.Sprintf("SELECT TABLE_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA= '%s' AND TABLE_NAME LIKE '%s' group by TABLE_NAME", databaseName, likeTableName)
+	} else {
+		jq = fmt.Sprintf("SELECT TABLE_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA= '%s' group by TABLE_NAME", databaseName)
+	}
 	rows, err := global.DBEngine.Query(jq)
 
 	if err != nil {

@@ -42,6 +42,10 @@ func userScanLn() bool {
 	fmt.Scanln(&isAll)
 	if isAll == 1 {
 		config.Conf.IsAllDataBase = true
+		var tableName string
+		fmt.Println("请输入表名模糊查询回车确认【直接回车表示转换所有表】：")
+		fmt.Scanln(&tableName)
+		config.Conf.LikeTableName = tableName
 		return true
 	} else {
 		config.Conf.IsAllDataBase = false

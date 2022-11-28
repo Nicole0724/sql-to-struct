@@ -18,6 +18,7 @@ type SqlToStructParams struct {
 	PackageName   string           `yaml:"PackageName"`
 	IsAllDataBase bool             `yaml:"IsAllDataBase"`
 	TableName     string           `yaml:"TableName"`
+	LikeTableName string           `yaml:"LikeTableName"`
 	SaveFileName  string           `yaml:"SaveFileName"`
 	SaveFilePwd   string           `yaml:"SaveFilePwd"`
 }

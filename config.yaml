@@ -1,6 +1,7 @@
 PackageName: entity
 IsAllDataBase: true
 TableName: dict
+LikeTableName: "" # “” 表示转换所有表，填写值表示模糊查询表名为 其的 转换
 SaveFileName: dictModel
 SaveFilePwd: "D:\\work_space\\open_source\\go-libs\\sql-to-struct\\entity\\" #绝对路径方式
 #SaveFilePwd: './entity/' #相对路径方式
