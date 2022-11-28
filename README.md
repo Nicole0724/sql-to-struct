@@ -2,6 +2,20 @@
 > 本项目立项初衷为减少开发人员书写代码量，特别是设计了数据库后还要重新将字段转换为结构体，故此设计了此工具。
 > 说白了...... 就是为了偷懒O(∩_∩)O哈哈~
 
+## 其他推荐
+
+gitee 新增方案如下：<br>
+通过mod管理，然后走testing 方式来使用<br><br>
+仓库lib 地址：https://gitee.com/nicole-go-libs/sql-to-struct-lib <br>
+lib 使用demo：https://gitee.com/nicole-go-libs/sql-to-struct-lib-demo
+```shell
+go get gitee.com/nicole-go-libs/sql-to-struct-lib
+```
+
+## 更新相关
+2022-11-28 V1.0.5
+> 新增 通过 表名 模糊匹配来转换功能
+
 ## config 配置文件说明
 ```yaml
 PackageName: entity
@@ -84,5 +98,6 @@ type Dict struct{
 
 
 ```
+
 
 
